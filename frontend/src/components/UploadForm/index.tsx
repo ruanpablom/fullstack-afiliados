@@ -5,8 +5,12 @@ import {
   uploadFormSchema,
 } from '@/schemas/upload-form-schema';
 import { Input } from '@/components/Input';
+import { useUploadTransactionsFile } from '@/services/upload-transactions-file';
 
 export function UploadForm(): JSX.Element {
+  const [uploadTransactionsFile, { loading, erro }] =
+    useUploadTransactionsFile();
+
   const {
     register,
     handleSubmit,
@@ -16,7 +20,7 @@ export function UploadForm(): JSX.Element {
   });
 
   const onSubmit = (data: UploadFormValues) => {
-    console.info(data.file[0]);
+    uploadTransactionsFile(data.file[0]).then(result => console.info(result));
   };
 
   return (
